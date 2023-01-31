@@ -1,0 +1,43 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build hyrule-cli
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        include:
+          - os: ubuntu-latest
+            output-name: hyrule-cli.linux
+          - os: macOS-latest
+            output-name: hyrule-cli.mac
+          - os: windows-latest
+            output-name: hyrule-cli.exe
+    steps:
+          - uses: actions/checkout@v2
+          - uses: dart-lang/setup-dart@v1.3
+          - name: Install dependencies
+            run: dart pub get
+          - run: mkdir build
+          - name: Install Dependencies
+            run: dart pub get
+          - run: dart compile exe ./bin/hyrule_cli.dart -v -o build/${{ matrix.output-name }}
+          - uses: actions/upload-artifact@v1
+            with:
+                name: native-executables
+                path: build
+
