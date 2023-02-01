@@ -99,6 +99,7 @@ Future<void> main(List<String> arguments) async {
 
       await uploadFile(basename(fileToUpload.path),
           fileToUpload.readAsBytesSync(), auth, url, copy);
+      await fileToUpload.delete();
     });
   } else if (args.extras.isEmpty) {
     await uploadFile(
