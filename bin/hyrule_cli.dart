@@ -98,14 +98,18 @@ Future<void> main(List<String> arguments) async {
       if (!await fileToUpload.exists()) return;
 
       await uploadFile(basename(fileToUpload.path),
-          await fileToUpload.readAsBytes(), auth, url, copy);
+          fileToUpload.readAsBytesSync(), auth, url, copy);
     });
   } else if (args.extras.isEmpty) {
     await uploadFile(
-        "name", (await stdin.toList()).elementAt(0) ?? [], auth, url, copy);
+        "name",
+        ([for (var chunk in await stdin.toList()) ...chunk]).elementAt(0) ?? [],
+        auth,
+        url,
+        copy);
   } else {
     final file = File(args.extras[0]);
     await uploadFile(
-        basename(file.path), await file.readAsBytes(), auth, url, copy);
+        basename(file.path), file.readAsBytesSync(), auth, url, copy);
   }
 }
