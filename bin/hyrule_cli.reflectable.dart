@@ -4,9 +4,10 @@
 
 import 'dart:core';
 import 'hyrule_cli.dart' as prefix1;
-import 'package:smart_arg/src/boolean_argument.dart' as prefix4;
+import 'package:smart_arg/src/boolean_argument.dart' as prefix6;
+import 'package:smart_arg/src/directory_argument.dart' as prefix4;
 import 'package:smart_arg/src/file_argument.dart' as prefix5;
-import 'package:smart_arg/src/help_argument.dart' as prefix6;
+import 'package:smart_arg/src/help_argument.dart' as prefix7;
 import 'package:smart_arg/src/parser.dart' as prefix3;
 import 'package:smart_arg/src/reflector.dart' as prefix0;
 import 'package:smart_arg/src/smart_arg.dart' as prefix2;
@@ -75,8 +76,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
       <m.DeclarationMirror>[
         r.VariableMirrorImpl(r'watch', 134348805, 0, const prefix0.Reflector(),
             -1, -1, -1, null, const <Object>[
-          const prefix4.BooleanArgument(
-              help: "enable watch mode in the current directory", short: "w")
+          const prefix4.DirectoryArgument(
+              help: "enable watch mode in the directory you specify",
+              short: "w")
         ]),
         r.VariableMirrorImpl(r'configFile', 134348805, 0,
             const prefix0.Reflector(), -1, -1, -1, null, const <Object>[
@@ -84,11 +86,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         ]),
         r.VariableMirrorImpl(r'copy', 134348805, 0, const prefix0.Reflector(),
             -1, -1, -1, null, const <Object>[
-          const prefix4.BooleanArgument(
+          const prefix6.BooleanArgument(
               help: "enable copying instead of printing to stdout")
         ]),
         r.VariableMirrorImpl(r'help', 134348805, 0, const prefix0.Reflector(),
-            -1, -1, -1, null, const <Object>[const prefix6.HelpArgument()]),
+            -1, -1, -1, null, const <Object>[const prefix7.HelpArgument()]),
         r.ImplicitGetterMirrorImpl(const prefix0.Reflector(), 0, 4),
         r.ImplicitSetterMirrorImpl(const prefix0.Reflector(), 0, 5),
         r.ImplicitGetterMirrorImpl(const prefix0.Reflector(), 1, 6),

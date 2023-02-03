@@ -15,9 +15,9 @@ import 'package:path/path.dart';
     description:
         'hyrule-cli - a CLI for uploading files to hyrule.pics on UNIX systems')
 class Args extends SmartArg {
-  @BooleanArgument(
-      help: "enable watch mode in the current directory", short: "w")
-  var watch = false;
+  @DirectoryArgument(
+      help: "enable watch mode in the directory you specify", short: "w")
+  var watch = Directory("/non-existent");
 
   @FileArgument(help: "the config file to use")
   var configFile = File(Platform.isMacOS
@@ -90,10 +90,8 @@ Future<void> main(List<String> arguments) async {
   final url = parsedConfig["URL"];
   final copy = args.copy;
 
-  if (args.watch) {
-    Directory.current
-        .watch(events: FileSystemEvent.create)
-        .listen((event) async {
+  if (args.watch.existsSync()) {
+    args.watch.watch(events: FileSystemEvent.create).listen((event) async {
       final fileToUpload = File(event.path);
       if (!await fileToUpload.exists()) return;
 
